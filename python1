@@ -1,0 +1,55 @@
+import random
+
+def number_guessing_game():
+    print("Welcome to the Number Guessing Game!")
+    print("Choose a difficulty level:")
+    print("1. Simple (1-50)")
+    print("2. Medium (1-100)")
+    print("3. Expert (1-200)")
+    
+    while True:
+        try:
+            level = int(input("Enter the level (1, 2, or 3): "))
+            if level in [1, 2, 3]:
+                break
+            else:
+                print("Invalid level. Please enter 1, 2, or 3.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+    if level == 1:
+        max_number = 50
+        max_attempts = 10
+    elif level == 2:
+        max_number = 100
+        max_attempts = 7
+    else:
+        max_number = 200
+        max_attempts = 5
+
+    number_to_guess = random.randint(1, max_number)
+    attempts_left = max_attempts
+    
+    print(f"I'm thinking of a number between 1 and {max_number}. You have {max_attempts} attempts to guess it.")
+
+    while attempts_left > 0:
+        try:
+            user_guess = int(input("Enter your guess: "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
+        
+        attempts_left -= 1
+
+        if user_guess < number_to_guess:
+            print(f"Too low! You have {attempts_left} attempts left.")
+        elif user_guess > number_to_guess:
+            print(f"Too high! You have {attempts_left} attempts left.")
+        else:
+            print(f"Congratulations! You guessed the number in {max_attempts - attempts_left} tries.")
+            break
+    else:
+        print(f"Sorry, you've run out of attempts. The number was {number_to_guess}.")
+
+if __name__ == "__main__":
+    number_guessing_game()
